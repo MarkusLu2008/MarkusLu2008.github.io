@@ -1,8 +1,11 @@
-.body-content { padding-top: 120px; }
+.body-content {
+    padding-top: 120px;
+}
 
 @media screen and (max-width: 768px) {
-    .body-content
-     { padding-top: 120px; }
+    .body-content {
+        padding-top: 120px;
+    }
 }
 
 .anchor {
@@ -15,4 +18,12 @@
 .apa-reference {
     padding-left: 36px;
     text-indent: -36px;
+}
+
+@media print {
+
+    body,
+    div {
+        display: block !important;
+    }
 }
