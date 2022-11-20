@@ -51,6 +51,8 @@
                   <li><a class="dropdown-item" href="#overview">System Overview</a></li>
                   <li><a class="dropdown-item" href="#database">Database</a></li>
                   <li><a class="dropdown-item" href="#webapp">Web Application</a></li>
+                  <li><a class="dropdown-item" href="#bot">Discord Bot</a></li>
+                  <li><a class="dropdown-item" href="#evaluation">Evaluation Plan</a></li>
                 </ul>
               </div>
               <button type="button" class="nav-item btn">
@@ -250,34 +252,67 @@
     I used the Python framework <a href="https://docs.pycord.dev/en/stable/">Pycord</a> and <a href="https://www.sqlalchemy.org/">SQLAlchemy</a>to develop the Discord Bot.
     Pycord allows me to use Python programming statements to call the programming tools offered by Discord,
     while SQLAlchemy allows me to easily manipulate a relational database without using SQL statements.
+    The Discord bot will be shown as an online user in the Discord server.
     </p>
-
-    <ul>
-    
+    <p><img src="./img/bot.png" alt="Discord Bot" width="80%" /></p>
+    <ul>    
     <li>
     <p>
     <b>Requesting all users to update information:</b>
     An SJS staff can call a <em>slash command</em> "/update_all" to request all Discord server members to update their profile.
     As shown in the following Python function for this slash command, only administrator in the Discord server is allowed to use this slash command.
     </p>
-    <p><img src="./img/bot_updateall_code.png" alt="Web App Table" width="80%" /></p>
-    <p><img src="./img/bot_updateall_command.png" alt="Web App Table" width="80%" /></p>
+    <p><img src="./img/bot_updateall_code.png" alt="Code for slash command updateall" width="80%" /></p>
+    <p><img src="./img/bot_updateall_command.png" alt="Slash command updateall" width="80%" /></p>
     <p>
     Once the command is successfully executed, all users will receive a direct message from the Discord bot.
     They can update their profile when they are online and if they want to.
     After pressing the "Update Your Profile" button, an update form will be shown for the user to update their information.
     In our system, only email is a necessary information; Facebook ID and Instagram ID are optional. 
     </p>
-    <p><img src="./img/bot_updateall_button.png" alt="Web App Table" width="70%" />
-    <img src="./img/bot_updateall_form.png" alt="Web App Table" width="25%" /></p>
+    <p><img src="./img/bot_updateall_button.png" alt="Button for slash command updateall" width="70%" />
+    <img src="./img/bot_updateall_form.png" alt="Form for slash command updateall" width="25%" /></p>
     <p>
     The submitted information will be stored in the user database, and the submitted information will be shown to the user.
     </p>
-    <p><img src="./img/bot_updateall_result.png" alt="Web App Table" width="80%" /></p>  
+    <p><img src="./img/bot_updateall_result.png" alt="Result for slash command updateall" width="80%" /></p>  
+    </li>
+
+
+    <li>
+    <p>
+    <b>Updating profile by user:</b>
+    A Discord server member can call a <em>slash command</em> "/update" to request updating his/her profile.
+    As shown in the following Python function, this slash command is available to all Discord server members.
+    Once the command is successfully executed, all users will receive a direct message from the Discord bot, 
+    and the update procedure is the same as in the previous function.
+    </p>
+    <p><img src="./img/bot_update_code.png" alt="Code for slash command update" width="80%" /></p>
+    <p><img src="./img/bot_update_command.png" alt="Slash command update" width="80%" /></p>
+    </li>
+
+    <li>
+    <p>
+    <b>Registering a new user:</b>
+    When a user join the Discord server, the Discord bot will be triggered to execute.
+    </p>
+    <p><img src="./img/bot_join_code.png" alt="Code for a user-join event" width="80%" /></p>
+    <p>
+    The Discord bot will send a direct message to the user, asking him/her to create a new profile.
+    If the user has joined the Discord server before, instead of creating a new user record in the database, the existing user record will be updated.
+    </p>
+    <p><img src="./img/bot_join.png" alt="Button for a user-join event" width="80%" /></p>
     </li>
 
     </ul>
-
+    
+    <div class="anchor" id="evaluation"></div>
+    <h4>2.5 Evaluation Plan</h4>
+    <p>
+    This system will be deployed to the computer server at St. James' Settlement using the <a href="https://pm2.keymetrics.io/">Process Manager 2</a>.
+    We will collect feedbacks from the SJS administration staff and Discord server member (using another Discord bot) 
+    on the user experience, interface design, and other qualitative comments.
+    </p>
 
     <div class="anchor" id="references"></div>
     <h3 id="ref">References</h4>
