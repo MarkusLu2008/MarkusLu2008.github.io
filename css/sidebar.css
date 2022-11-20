@@ -1,5 +1,11 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
 .body-content {
-    padding-top: 120px;
+    padding-top: 100px;
 }
 
 @media screen and (max-width: 768px) {
