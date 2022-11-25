@@ -11,7 +11,7 @@
   <title>Project Homepage St. James' Settlement Bot</title>
 </head>
 
-<body>
+<body class="bg-light">
   <div class="d-print-none">
     <nav class="navbar navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -43,12 +43,16 @@
                 </ul>
               </div>
               <div class="btn-group">
-                <button type="button" class="nav-item btn"><a class="nav-link" href="#intro">Methodology and Implementations</a></button>
+                <button type="button" class="nav-item btn"><a class="nav-link" href="#methodology">Methodology and Implementations</a></button>
                 <button type="button" class="nav-item btn-close-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                   <span class="visually-hidden">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#overview">System Overview</a></li>
+                  <li><a class="dropdown-item" href="#database">Database</a></li>
+                  <li><a class="dropdown-item" href="#webapp">Web Application</a></li>
+                  <li><a class="dropdown-item" href="#bot">Discord Bot</a></li>
+                  <li><a class="dropdown-item" href="#evaluation">Evaluation Plan</a></li>
                 </ul>
               </div>
               <button type="button" class="nav-item btn">
@@ -59,9 +63,7 @@
       </div>
     </nav>
   </div>
-  <div class="container body-content bg-light">
-
-    
+  <div class="container body-content">
     <div class="row text-center">
       <h2>Managing Social Virtual Group Members <br /> for Hong Kong Youth Services using a Discord Bot</h2>
       <h4>Markus Lu</h4><br /><br />
@@ -139,19 +141,158 @@
     </ul>
 
     <div class="anchor" id="methodology"></div>
-    <h3>2. Methodology and Implementations</h3>
+    <h3>2. Methodology and Implementations</h3><br />
 
     <div class="anchor" id="overview"></div>
     <h4>2.1 System Overview</h4>
     <p><img src="./img/system_design.png" alt="System design" width="80%" /></p>
 
     <p>
-    My solution contains three components to be deployed on the computer server of St. James' Settlement (SJS):
+    I used the programming language <a href="https://www.python.org/">Python</a> and a number of Python programming frameworks in my implementation. 
+    My solution contains three components that are to be deployed to the computer server at the St. James' Settlement (SJS):
     <ul>
-      <li><b>Database:</b> It is a relational table where data is arranged in rows and columns. It keeps the information of the SJS Discord server members, including their Discord IDs, Discord names, email addresses, Facebook IDs, and Instagram IDs.</li>
-      <li><b>Discord Bot:</b> It acts as a robotic group member in the SJS Discord server. It can read messages and commands from users, and send messages and input forms to users for collecting user information.</li>
-      <li><b>Web Application for SJS Staff:</b> It is a website for SJS staff to administer and manage the database through a web browser. SJS staff can browse all the user information in the database in a user-friendly interface. They can also create new user information, and edit and delete existing user information.</li>
+      <li><b>Database:</b> 
+        The user database is relational tables where data is arranged in rows and columns. 
+        We keep the information of the SJS Discord server members, including their Discord IDs, Discord names, email addresses, Facebook IDs, and Instagram IDs.</li>
+      <li><b>Discord Bot:</b> 
+        The Discord bot is a computer program that acts as a user-like member in the SJS Discord server.
+        It can be used to automate various actions and interacts with the users.
+        My Discord bot reads messages and <em>slash commands</em> from users, 
+        and will then send response messages and/or input forms to users for collecting the user information.</li>
+      <li><b>Web Application for SJS Staff:</b>
+        This web application is a website for SJS staff to administer and manage the user database through a web browser. 
+        SJS staff can browse all the stored user information in a user-friendly interface. 
+        They can also create new user information, edit and delete existing user information.</li>
     </ul>
+    </p>
+    <div class="anchor" id="database"></div>
+    <h4>2.2 Database</h4>
+    <p>
+    I used <a href="https://www.postgresql.org/">PostgreSQL</a>,
+    which is one of the world's most advanced open source database management system.</p>
+
+    <p>The Discord server members information is kept in a relational database table "cyberyouth".
+    In the following diagram, I used <a href="https://www.postgresql.org/docs/current/app-psql.html">psql (the terminal-based front-end to PostgreSQL)</a> 
+    to display the table properties and the contents of the table "cyberyouth".
+    <a href="https://www.w3schools.com/sql/">SQL statements</a> can be used in psql to manipulate and retrieve data in the PostgreSQL database. 
+    Note that the table contents are generated by me using another computer program on both real and synthetic user data.
+    </p>
+    <p><img src="./img/psqlimg.png" alt="Database Table" width="80%" /></p>
+
+    <div class="anchor" id="webapp"></div>
+    <h4>2.3 Web Application</h4>
+    <p>
+    I used the Python web application framework <a href="https://flask.palletsprojects.com/en/2.2.x/">Flask</a> to develop the web application.
+    For connecting to the database, I used the Python framework <a href="https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/">Flask-SQLAlchemy</a>,
+    which allows me to easily manipulate a relational database without using SQL statements.
+    For the web pages generated by the web application, 
+    I used the CSS frameworks <a href="https://getbootstrap.com/">Bootstrap 5.2</a> and <a href="https://datatables.net/">DataTables</a>, and the JavaScript libraries <a href="https://www.w3schools.com/jquery/">JQuery</a> and <a href="https://markcell.github.io/jquery-tabledit/">Tabledit</a>. 
+    To avoid reloading of the web page upon each user interaction, 
+    I also used <a href="https://www.w3schools.com/js/js_ajax_intro.asp">AJAX</a> 
+    such that only part of the web page will be updated upon a user interaction in the web browser. 
+    </p>
+    
+    <ul>
+    
+    <li>
+    <p>
+    <b>Listing users' data:</b>
+    An SJS staff can log in to the web application through a web browser.
+    The following data table showing the user information in the user database will be displayed.
+    Note that due to AJAX, the table content is retrieved from the database every time when the SJS staff interacts with the data table, e.g., sorting and searching.
+    It allows multiple SJS staff to manage the database at the same time.
+    </p>
+    <p><img src="./img/webapplistimg.png" alt="Web App Table" width="80%" /></p>
+    </li>
+    
+    <li>
+    <p>
+    <b>Creating a new user:</b>
+    An SJS staff can create a new user easily by clicking on the "Create new record" button.</p>
+    <p><img src="./img/Create%20Form.png" alt="Web App Create a New User" width="80%" /></p>
+    <p>
+    When a user is to be inserted into the database table "cyberyouth", 
+    my program will make sure that there is no existing user with the same Discord ID; otherwise, the operation will fail with a notification to the user.
+    A notification will also be shown for a successful user creation.
+    </p>
+    <p><img src="./img/Create%20Msg.png" alt="Web App Message for Creating User" width="30%" />
+      <img src="./img/Create%20result.png" alt="Web App Result for Creating User" width="65%" /></p>
+    </li>
+    
+    <li>
+    <b>Editing/Deleting an existing user:</b>
+    An SJS staff can edit or delete an existing user easily by clicking on buttons on the right-hand side of the corresponding user data row.</p>
+    <p><img src="./img/edit.png" alt="Web App Edit a User" width="80%" /></p>
+    <p><img src="./img/delete.png" alt="Web App Delete a User" width="80%" /></p>
+    </li>
+    </ul>
+
+    <div class="anchor" id="bot"></div>
+    <h4>2.4 Discord Bot</h4>
+    <p>
+    I used the Python framework <a href="https://docs.pycord.dev/en/stable/">Pycord</a> and <a href="https://www.sqlalchemy.org/">SQLAlchemy</a>to develop the Discord Bot.
+    Pycord allows me to use Python programming statements to call the programming tools offered by Discord,
+    while SQLAlchemy allows me to easily manipulate a relational database without using SQL statements.
+    The Discord bot will be shown as an online user in the Discord server.
+    </p>
+    <p><img src="./img/bot.png" alt="Discord Bot" width="80%" /></p>
+    <ul>    
+    <li>
+    <p>
+    <b>Requesting all users to update information:</b>
+    An SJS staff can call a <em>slash command</em> "/update_all" to request all Discord server members to update their profile.
+    As shown in the following Python function for this slash command, only administrator in the Discord server is allowed to use this slash command.
+    </p>
+    <p><img src="./img/bot_updateall_code.png" alt="Code for slash command updateall" width="80%" /></p>
+    <p><img src="./img/bot_updateall_command.png" alt="Slash command updateall" width="80%" /></p>
+    <p>
+    Once the command is successfully executed, all users will receive a direct message from the Discord bot.
+    They can update their profile when they are online and if they want to.
+    After pressing the "Update Your Profile" button, an update form will be shown for the user to update their information.
+    In our system, only email is a necessary information; Facebook ID and Instagram ID are optional. 
+    </p>
+    <p><img src="./img/bot_updateall_button.png" alt="Button for slash command updateall" width="70%" />
+    <img src="./img/bot_updateall_form.png" alt="Form for slash command updateall" width="25%" /></p>
+    <p>
+    The submitted information will be stored in the user database, and the submitted information will be shown to the user.
+    </p>
+    <p><img src="./img/bot_updateall_result.png" alt="Result for slash command updateall" width="80%" /></p>  
+    </li>
+
+
+    <li>
+    <p>
+    <b>Updating profile by user:</b>
+    A Discord server member can call a <em>slash command</em> "/update" to request updating his/her profile.
+    As shown in the following Python function, this slash command is available to all Discord server members.
+    Once the command is successfully executed, all users will receive a direct message from the Discord bot, 
+    and the update procedure is the same as in the previous function.
+    </p>
+    <p><img src="./img/bot_update_code.png" alt="Code for slash command update" width="80%" /></p>
+    <p><img src="./img/bot_update_command.png" alt="Slash command update" width="80%" /></p>
+    </li>
+
+    <li>
+    <p>
+    <b>Registering a new user:</b>
+    When a user join the Discord server, the Discord bot will be triggered to execute.
+    </p>
+    <p><img src="./img/bot_join_code.png" alt="Code for a user-join event" width="80%" /></p>
+    <p>
+    The Discord bot will send a direct message to the user, asking him/her to create a new profile.
+    If the user has joined the Discord server before, instead of creating a new user record in the database, the existing user record will be updated.
+    </p>
+    <p><img src="./img/bot_join.png" alt="Button for a user-join event" width="80%" /></p>
+    </li>
+
+    </ul>
+    
+    <div class="anchor" id="evaluation"></div>
+    <h4>2.5 Evaluation Plan</h4>
+    <p>
+    This system will be deployed to the computer server at St. James' Settlement using the <a href="https://pm2.keymetrics.io/">Process Manager 2</a>.
+    We will collect feedbacks from the SJS administration staff and Discord server members (using another Discord bot) 
+    on the user experience, interface design, and collect other qualitative comments.
     </p>
 
     <div class="anchor" id="references"></div>
