@@ -109,7 +109,7 @@
 <body>
   <main>
     <h1>Support</h1>
-    <p>If you need help with Garden Of The Self, send a message below. This will open your email app with your details prefilled.</p>
+    <p>If you need help with Garden Of The Self, send a message below. This uses <code>mailto:</code> and opens your email app with your details prefilled.</p>
 
     <p class="small-links">
       <a href="/The-Garden-Of-The-Self/terms-and-conditions.html">Terms and Conditions</a>
@@ -126,12 +126,14 @@
       <label for="message">How can we help?</label>
       <textarea id="message" name="message" required></textarea>
 
-      <button type="submit">Open email app</button>
+      <button type="submit">Send via email app</button>
       <p id="error-text" class="error" role="alert" aria-live="polite"></p>
     </form>
 
     <div id="fallback" class="fallback">
-      <p>If your email app did not open, email us directly at <strong id="email-text">markuslu2008+gots@gmail.com</strong>.</p>
+      <p>If your email app did not open, use this direct link:
+        <a id="mailto-direct-link" href="mailto:markuslu2008+gots@gmail.com">Email markuslu2008+gots@gmail.com</a>.
+      </p>
       <button id="copy-email-button" type="button">Copy email address</button>
     </div>
 
@@ -170,11 +172,18 @@
           "Page: " + window.location.href,
           "Time (ISO): " + new Date().toISOString()
         ];
-        var body = bodyLines.join("\n");
+        var body = bodyLines.join("\r\n");
         var mailtoHref = "mailto:" + supportEmail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 
         fallback.style.display = "block";
-        window.location.href = mailtoHref;
+        document.getElementById("mailto-direct-link").href = mailtoHref;
+
+        var tempLink = document.createElement("a");
+        tempLink.href = mailtoHref;
+        tempLink.style.display = "none";
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
       });
 
       copyButton.addEventListener("click", function () {
