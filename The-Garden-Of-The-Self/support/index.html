@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Support | The Garden Of The Self</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 24px;
+      max-width: 860px;
+    }
+
+    main {
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 0 0 0.75rem 0;
+    }
+
+    p {
+      margin: 0.6rem 0;
+    }
+
+    .small-links {
+      margin-bottom: 1rem;
+    }
+
+    .small-links a {
+      margin-right: 12px;
+    }
+
+    form {
+      margin-top: 1rem;
+      max-width: 560px;
+    }
+
+    label {
+      display: block;
+      margin: 0.8rem 0 0.3rem 0;
+      font-weight: 600;
+    }
+
+    input,
+    textarea,
+    button {
+      font: inherit;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid #888;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    button:focus {
+      outline: 2px solid #4f8cff;
+      outline-offset: 2px;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #666;
+      cursor: pointer;
+    }
+
+    .error {
+      color: #c62828;
+      margin-top: 0.8rem;
+      font-weight: 600;
+    }
+
+    .fallback {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #777;
+      border-radius: 6px;
+      display: none;
+    }
+
+    hr {
+      margin-top: 1.8rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Support</h1>
+    <p>If you need help with Garden Of The Self, send a message below. This will open your email app with your details prefilled.</p>
+
+    <p class="small-links">
+      <a href="/The-Garden-Of-The-Self/terms-and-conditions.html">Terms and Conditions</a>
+      <a href="/The-Garden-Of-The-Self/privacy-policy.html">Privacy Policy</a>
+    </p>
+
+    <form id="support-form" novalidate>
+      <label for="name">Your name</label>
+      <input id="name" name="name" type="text" required autocomplete="name">
+
+      <label for="contact">Your contact info (email or phone)</label>
+      <input id="contact" name="contact" type="text" required autocomplete="email">
+
+      <label for="message">How can we help?</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Open email app</button>
+      <p id="error-text" class="error" role="alert" aria-live="polite"></p>
+    </form>
+
+    <div id="fallback" class="fallback">
+      <p>If your email app did not open, email us directly at <strong id="email-text">markuslu2008+gots@gmail.com</strong>.</p>
+      <button id="copy-email-button" type="button">Copy email address</button>
+    </div>
+
+    <hr>
+  </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById("support-form");
+      var errorText = document.getElementById("error-text");
+      var fallback = document.getElementById("fallback");
+      var copyButton = document.getElementById("copy-email-button");
+      var supportEmail = "markuslu2008+gots@gmail.com";
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        errorText.textContent = "";
+
+        var name = document.getElementById("name").value.trim();
+        var contact = document.getElementById("contact").value.trim();
+        var message = document.getElementById("message").value.trim();
+
+        if (!name || !contact || !message) {
+          errorText.textContent = "Please fill in your name, contact info, and message.";
+          return;
+        }
+
+        var subject = "Garden Of The Self Support - " + name;
+        var bodyLines = [
+          "Name: " + name,
+          "Contact info: " + contact,
+          "",
+          "Message:",
+          message,
+          "",
+          "Page: " + window.location.href,
+          "Time (ISO): " + new Date().toISOString()
+        ];
+        var body = bodyLines.join("\n");
+        var mailtoHref = "mailto:" + supportEmail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+
+        fallback.style.display = "block";
+        window.location.href = mailtoHref;
+      });
+
+      copyButton.addEventListener("click", function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(supportEmail).then(function () {
+            copyButton.textContent = "Copied";
+          }).catch(function () {
+            copyButton.textContent = "Copy failed";
+          });
+          return;
+        }
+        copyButton.textContent = "Copy not supported";
+      });
+    })();
+  </script>
+</body>
+
+</html>
